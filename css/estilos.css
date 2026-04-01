@@ -1,0 +1,273 @@
+/* FUENTE GENERAL */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f8f8;
+    color: #222;
+}
+
+/* -------- PANTALLA INICIAL -------- */
+
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(
+        rgba(0,0,0,0.6),
+        rgba(0,0,0,0.6)
+    ), url("../img/hero.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+/* BOTONES MESAS / SILLAS */
+.opcion {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 260px;
+    font-size: 3rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-decoration: none;
+    color: white;
+    background-color: rgba(30, 30, 30, 0.85);
+    border-radius: 25px;
+    transition: all 0.35s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.opcion:hover {
+    transform: translateY(-8px);
+    background-color: #1f3d2b; /* verde oscuro elegante */
+    color: white;
+}
+
+/* -------- CATÁLOGO -------- */
+
+h1 {
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+.card {
+    border: none;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+}
+
+.card img {
+    height: 230px;
+    object-fit: contain;
+    background-color: #fff;
+}
+
+
+.card-body h5 {
+    font-weight: 600;
+}
+
+.card-body p {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/*COLORES DISPONIBLES*/
+
+/* CONTENEDOR */
+.colores {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+/* CÍRCULOS */
+.color {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+}
+
+.negro {
+    background-color: #000;
+}
+
+.blanco {
+    background-color: #fff;
+    border: 1px solid #aaa;
+}
+
+.rojo {
+    background-color: red;
+}
+
+.gris {
+    background-color: gray;
+}
+
+.azul {
+    background-color: #0d6efd;
+}
+
+.verde {
+    background-color: green;
+}
+
+.cafe {
+    background-color: brown;
+}
+
+.naranja {
+    background-color: orange;
+}
+
+.vino {
+    background-color: #532129;
+}
+
+.amarillo {
+    background-color: yellow;
+}
+
+.img {
+    background-size: cover;
+    background-position: center;
+    display: inline-block;
+}
+
+
+
+/* BOTÓN VOLVER */
+.btn-secondary {
+    background-color: #222;
+    border: none;
+}
+
+.btn-secondary:hover {
+    background-color: #000;
+}
+
+.zoom-click {
+    cursor: zoom-in;
+}
+
+.footer-contacto {
+    background-color: #111;
+    color: #fff;
+    padding: 15px 0;
+    margin-top: 60px;
+    font-size: 1rem;
+    letter-spacing: 1px;
+}
+
+/*Carrusel*/
+.carousel-item img, .zoom-slide {
+  max-height: 80vh;
+  object-fit: contain;
+  background: #fff;
+  user-select: none;
+  -webkit-user-drag: none;
+  touch-action: pan-y;
+  width: 100%;
+  height: 100%;
+  object-position: center;
+}
+
+.carousel-item {
+    height: 80vh;
+}
+
+@media (max-width: 576px){
+    .carousel-item{
+        height: 70vh;
+    }
+}
+.modal-content {
+  border-radius: 0;
+}
+
+.carousel img {
+  max-height: 80vh;
+  object-fit: contain;
+  background: #fff;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: invert(1);
+}
+/*Logo*/
+.logo {
+    height: 100px;
+    width: auto;
+    object-fit: contain;
+}
+
+.fw-bold{
+    font-size: 3rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+@media (max-width: 576px){
+    .fw-bold{
+        font-size: 2rem;
+        font-weight: 500;
+        letter-spacing: 1px;
+    }
+}
+
+/*estilo de whatsapp*/
+
+.whatsapp-float {
+    /*position: fixed;
+    bottom: 20px;
+    right: 20px;*/
+    width: 70px;
+    height: 70px;
+    /*z-index: 1000;*/
+    display: block;
+}
+
+.whatsapp-float img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: transform 0.3s;
+}
+
+.whatsapp-float img:hover {
+    transform: scale(1.1);
+}
+
+.whatsapp-container{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.whatsapp-text{
+    display: block;
+    background: #25d366;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
