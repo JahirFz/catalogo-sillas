@@ -1,309 +1,190 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Sillas</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Catalogo de sillas con galeria de imagenes y colores disponibles.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
-
-<!--CONTACTO DE WHATSAPP-->
 <div class="whatsapp-container">
-    <span class="whatsapp-text">Contáctanos</span>
-
-    <a href="https://wa.me/522223882640" 
-    class="whatsapp-float" 
-    target="_blank">
-
-    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" 
-            alt="WhatsApp">
+    <span class="whatsapp-text">Contactanos</span>
+    <a href="https://wa.me/522223882640" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Abrir WhatsApp para contacto">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
     </a>
 </div>
 
-<!--BARRA DE LOGO-->
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="index.html">
-        <img src="img/logo.jpeg" class="logo me-2">
-        <span class="fw-bold">Catálogo</span>
+            <img src="img/logo.jpeg" class="logo me-2" alt="Logo del catalogo">
+            <span class="brand-title">Catalogo</span>
         </a>
     </div>
 </nav>
 
-<!--PRODUCTOS-->
-<div class="container py-5">
+<main class="catalog-page">
+    <section class="catalog-header">
+        <div class="container">
+            <p class="catalog-eyebrow">Coleccion</p>
+            <div class="catalog-header-row">
+                <div>
+                    <h1>Sillas</h1>
+                    <p class="catalog-intro">Modelos resistentes y funcionales para eventos, comedor, negocio o uso diario. Toca una imagen para abrir la galeria completa.</p>
+                </div>
+                <a href="index.html" class="btn btn-secondary">Volver al inicio</a>
+            </div>
+        </div>
+    </section>
 
-    <h1 class="text-center mb-4">Sillas</h1>
+    <section class="catalog-grid-section">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <article class="card product-card h-100">
+                        <img src="img/sillas/sillaZintroCompleta/sillaZintroCompleta3.png" class="card-img-top zoom-click" data-bs-toggle="modal" data-bs-target="#zoomModal" data-images="img/sillas/sillaZintroCompleta/sillaZintroCompleta1.png,img/sillas/sillaZintroCompleta/sillaZintroCompleta2.png,img/sillas/sillaZintroCompleta/sillaZintroCompleta3.png,img/sillas/sillaZintroCompleta/sillaZintroCompleta4.png" alt="Silla zintro completa">
+                        <div class="card-body">
+                            <h2 class="product-title">Silla Zintro Completa</h2>
+                            <p class="product-copy">Acabado completo con estructura firme y presencia sobria para distintos tipos de espacio.</p>
+                        </div>
+                    </article>
+                </div>
 
-    <div class="row">
+                <div class="col-md-6 col-lg-4">
+                    <article class="card product-card h-100">
+                        <img src="img/sillas/sillaZintroPintada/sillaZintroPintadaBlanca3.png" class="card-img-top zoom-click" data-bs-toggle="modal" data-bs-target="#zoomModal" data-images="img/sillas/sillaZintroPintada/sillaZintroPintadaBlanca1.png,img/sillas/sillaZintroPintada/sillaZintroPintadaBlanca2.png,img/sillas/sillaZintroPintada/sillaZintroPintadaBlanca3.png,img/sillas/sillaZintroPintada/sillaZintroPintadaBlanca4.png" alt="Silla zintro pintada">
+                        <div class="card-body">
+                            <h2 class="product-title">Silla Zintro</h2>
+                            <p class="product-copy">Version pintada con variedad de tonos para combinar con eventos, interiores o mobiliario comercial.</p>
+                            <p class="color-label">Colores disponibles</p>
+                            <div class="colores" aria-label="Colores disponibles para silla zintro">
+                                <span class="color negro" title="Negro"></span>
+                                <span class="color blanco" title="Blanco"></span>
+                                <span class="color rojo" title="Rojo"></span>
+                                <span class="color azul" title="Azul"></span>
+                                <span class="color gris" title="Gris"></span>
+                                <span class="color verde" title="Verde"></span>
+                                <span class="color cafe" title="Cafe"></span>
+                                <span class="color naranja" title="Naranja"></span>
+                                <span class="color vino" title="Vino"></span>
+                                <span class="color amarillo" title="Amarillo"></span>
+                                <span class="color img" style="background-image: url('img/zilver.jpg');" title="Acabado metalico"></span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
 
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <img src="img/sillas/sillaZintroCompleta/sillaZintroCompleta3.png" 
-                    class="card-img-top zoom-click"
-                    data-bs-toggle="modal"
-                    data-bs-target="#zoomModal"
-                    data-images="img/sillas/sillaZintroCompleta/sillaZintroCompleta1.png,img/sillas/sillaZintroCompleta/sillaZintroCompleta2.png,img/sillas/sillaZintroCompleta/sillaZintroCompleta3.png,img/sillas/sillaZintroCompleta/sillaZintroCompleta4.png"
-                    alt="Silla Moderna">
-                <div class="card-body text-center">
-                    <h5>Silla Zintro Completa</h5>
-                    <p></p>
+                <div class="col-md-6 col-lg-4">
+                    <article class="card product-card h-100">
+                        <img src="img/sillas/sillaPintada/sillaPintadaRoja3.png" class="card-img-top zoom-click" data-bs-toggle="modal" data-bs-target="#zoomModal" data-images="img/sillas/sillaPintada/sillaPintadaRoja1.png,img/sillas/sillaPintada/sillaPintadaRoja2.png,img/sillas/sillaPintada/sillaPintadaRoja3.png,img/sillas/sillaPintada/sillaPintadaRoja4.png" alt="Silla pintada">
+                        <div class="card-body">
+                            <h2 class="product-title">Silla Pintada</h2>
+                            <p class="product-copy">Opcion practica para uso rudo con buena presencia visual y multiples colores para personalizar.</p>
+                            <p class="color-label">Colores disponibles</p>
+                            <div class="colores" aria-label="Colores disponibles para silla pintada">
+                                <span class="color negro" title="Negro"></span>
+                                <span class="color blanco" title="Blanco"></span>
+                                <span class="color rojo" title="Rojo"></span>
+                                <span class="color azul" title="Azul"></span>
+                                <span class="color gris" title="Gris"></span>
+                                <span class="color verde" title="Verde"></span>
+                                <span class="color cafe" title="Cafe"></span>
+                                <span class="color naranja" title="Naranja"></span>
+                                <span class="color vino" title="Vino"></span>
+                                <span class="color amarillo" title="Amarillo"></span>
+                                <span class="color img" style="background-image: url('img/zilver.jpg');" title="Acabado metalico"></span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <article class="card product-card h-100">
+                        <img src="img/sillaCromadaBlnca1.png" class="card-img-top zoom-click" data-bs-toggle="modal" data-bs-target="#zoomModal" data-images="img/sillaCromadaBlnca1.png" alt="Silla cromada blanca">
+                        <div class="card-body">
+                            <h2 class="product-title">Silla Cromada</h2>
+                            <p class="product-copy">Perfil limpio y acabado brillante para espacios que buscan una apariencia mas moderna.</p>
+                            <p class="color-label">Colores disponibles</p>
+                            <div class="colores" aria-label="Colores disponibles para silla cromada">
+                                <span class="color negro" title="Negro"></span>
+                                <span class="color blanco" title="Blanco"></span>
+                                <span class="color rojo" title="Rojo"></span>
+                                <span class="color azul" title="Azul"></span>
+                                <span class="color gris" title="Gris"></span>
+                                <span class="color verde" title="Verde"></span>
+                                <span class="color cafe" title="Cafe"></span>
+                                <span class="color naranja" title="Naranja"></span>
+                                <span class="color vino" title="Vino"></span>
+                                <span class="color amarillo" title="Amarillo"></span>
+                                <span class="color img" style="background-image: url('img/zilver.jpg');" title="Acabado metalico"></span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <article class="card product-card h-100">
+                        <img src="img/sillaAcoginada1.webp" class="card-img-top zoom-click" data-bs-toggle="modal" data-bs-target="#zoomModal" data-images="img/sillaAcoginada1.png" alt="Silla acolchonada">
+                        <div class="card-body">
+                            <h2 class="product-title">Silla Acojinada</h2>
+                            <p class="product-copy">Pensada para mayor comodidad, ideal cuando buscas una sensacion mas acogedora y formal.</p>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <article class="card product-card h-100">
+                        <img src="img/sillas/sillaGalbanizada/sillaGalbanizada3.png" class="card-img-top zoom-click" data-bs-toggle="modal" data-bs-target="#zoomModal" data-images="img/sillas/sillaGalbanizada/sillaGalbanizada1.png,img/sillas/sillaGalbanizada/sillaGalbanizada2.png,img/sillas/sillaGalbanizada/sillaGalbanizada3.png,img/sillas/sillaGalbanizada/sillaGalbanizada4.png" alt="Silla galvanizada">
+                        <div class="card-body">
+                            <h2 class="product-title">Silla Galvanizada</h2>
+                            <p class="product-copy">Alternativa durable con apariencia industrial y distintas opciones de color y acabado.</p>
+                            <p class="color-label">Colores disponibles</p>
+                            <div class="colores" aria-label="Colores disponibles para silla galvanizada">
+                                <span class="color negro" title="Negro"></span>
+                                <span class="color blanco" title="Blanco"></span>
+                                <span class="color rojo" title="Rojo"></span>
+                                <span class="color azul" title="Azul"></span>
+                                <span class="color gris" title="Gris"></span>
+                                <span class="color verde" title="Verde"></span>
+                                <span class="color cafe" title="Cafe"></span>
+                                <span class="color naranja" title="Naranja"></span>
+                                <span class="color vino" title="Vino"></span>
+                                <span class="color amarillo" title="Amarillo"></span>
+                                <span class="color img" style="background-image: url('img/zilver.jpg');" title="Acabado metalico"></span>
+                            </div>
+                        </div>
+                    </article>
                 </div>
             </div>
         </div>
+    </section>
+</main>
 
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <img src="img/sillas/sillaZintroPintada/sillaZintroPintadaBlanca3.png" 
-                    class="card-img-top zoom-click"
-                    data-bs-toggle="modal"
-                    data-bs-target="#zoomModal"
-                    data-images="img/sillas/sillaZintroPintada/sillaZintroPintadaBlanca1.png,img/sillas/sillaZintroPintada/sillaZintroPintadaBlanca2.png,img/sillas/sillaZintroPintada/sillaZintroPintadaBlanca3.png,img/sillas/sillaZintroPintada/sillaZintroPintadaBlanca4.png"
-                    alt="Silla Moderna">
-                <div class="card-body text-center">
-                    <h5>Silla Zintro</h5>
-                    <p></p>
-
-                    <div class="colores">
-                        <span class="color negro"></span>
-                        <span class="color blanco"></span>
-                        <span class="color rojo"></span>
-                        <span class="color azul"></span>
-                        <span class="color gris"></span>
-                        <span class="color verde"></span>
-                        <span class="color cafe"></span>
-                        <span class="color naranja"></span>
-                        <span class="color vino"></span>
-                        <span class="color amarillo"></span>
-
-                        <span class="color img" style="background-image: url('img/zilver.jpg');"></span>
-                    </div>
+<div class="modal fade" id="zoomModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content bg-dark">
+            <button type="button" class="gallery-close" data-bs-dismiss="modal" aria-label="Cerrar galeria">×</button>
+            <div class="modal-body p-0">
+                <div id="zoomCarousel" class="carousel slide" data-bs-interval="false" data-bs-touch="true" data-bs-wrap="true">
+                    <div class="carousel-inner" id="carouselImages"></div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#zoomCarousel" data-bs-slide="prev" aria-label="Imagen anterior">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#zoomCarousel" data-bs-slide="next" aria-label="Imagen siguiente">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
                 </div>
             </div>
         </div>
-
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <img src="img/sillas/sillaPintada/sillaPintadaRoja3.png" 
-                    class="card-img-top zoom-click"
-                    data-bs-toggle="modal"
-                    data-bs-target="#zoomModal"
-                    data-images="img/sillas/sillaPintada/sillaPintadaRoja1.png,img/sillas/sillaPintada/sillaPintadaRoja2.png,img/sillas/sillaPintada/sillaPintadaRoja3.png,img/sillas/sillaPintada/sillaPintadaRoja4.png"
-                    alt="Silla Moderna">
-                <div class="card-body text-center">
-                    <h5>Silla Pintada</h5>
-                    <p></p>
-
-                    <div class="colores">
-                        <span class="color negro"></span>
-                        <span class="color blanco"></span>
-                        <span class="color rojo"></span>
-                        <span class="color azul"></span>
-                        <span class="color gris"></span>
-                        <span class="color verde"></span>
-                        <span class="color cafe"></span>
-                        <span class="color naranja"></span>
-                        <span class="color vino"></span>
-                        <span class="color amarillo"></span>
-
-                        <span class="color img" style="background-image: url('img/zilver.jpg');"></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <img src="img/sillaCromadaBlnca1.png" 
-                    class="card-img-top zoom-click"
-                    data-bs-toggle="modal"
-                    data-bs-target="#zoomModal"
-                    data-images="img/sillaCromadaBlnca1.png"
-                    alt="Silla Moderna">
-                <div class="card-body text-center">
-                    <h5>Silla Cromada</h5>
-                    <p></p>
-
-                    <div class="colores">
-                        <span class="color negro"></span>
-                        <span class="color blanco"></span>
-                        <span class="color rojo"></span>
-                        <span class="color azul"></span>
-                        <span class="color gris"></span>
-                        <span class="color verde"></span>
-                        <span class="color cafe"></span>
-                        <span class="color naranja"></span>
-                        <span class="color vino"></span>
-                        <span class="color amarillo"></span>
-
-                        <span class="color img" style="background-image: url('img/zilver.jpg');"></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <img src="img/sillaAcoginada1.png" 
-                    class="card-img-top zoom-click"
-                    data-bs-toggle="modal"
-                    data-bs-target="#zoomModal"
-                    data-images="img/sillaAcoginada1.png"
-                    alt="Silla Moderna">
-                <div class="card-body text-center">
-                    <h5>Silla Acoginada</h5>
-                    <p></p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <img src="img/sillas/sillaGalbanizada/sillaGalbanizada3.png" 
-                    class="card-img-top zoom-click"
-                    data-bs-toggle="modal"
-                    data-bs-target="#zoomModal"
-                    data-images="img/sillas/sillaGalbanizada/sillaGalbanizada1.png,img/sillas/sillaGalbanizada/sillaGalbanizada2.png,img/sillas/sillaGalbanizada/sillaGalbanizada3.png,img/sillas/sillaGalbanizada/sillaGalbanizada4.png"
-                    alt="Silla Moderna">
-                <div class="card-body text-center">
-                    <h5>Silla Galvanizada</h5>
-                    <p></p>
-
-                    <div class="colores">
-                        <span class="color negro"></span>
-                        <span class="color blanco"></span>
-                        <span class="color rojo"></span>
-                        <span class="color azul"></span>
-                        <span class="color gris"></span>
-                        <span class="color verde"></span>
-                        <span class="color cafe"></span>
-                        <span class="color naranja"></span>
-                        <span class="color vino"></span>
-                        <span class="color amarillo"></span>
-
-                        <span class="color img" style="background-image: url('img/zilver.jpg');"></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
-
-    <div class="text-center mt-4">
-          <a href="index.html" class="btn btn-secondary">Volver</a>
-    </div>
-
 </div>
-
-<!--CARRUSEL DE IMAGENES-->
-<div class="modal fade" id="zoomModal" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content bg-dark">
-      
-      <div class="modal-body p-0">
-
-        <div id="zoomCarousel" class="carousel slide" data-bs-interval="false" data-bs-touch="true" data-bs-wrap="true">
-
-            <div class="carousel-inner" id="carouselImages"></div>
-
-            <button class="carousel-control-prev" type="button" data-bs-target="#zoomCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon"></span>
-            </button>
-
-            <button class="carousel-control-next" type="button" data-bs-target="#zoomCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon"></span>
-            </button>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-  const zoomCarousel = document.getElementById('zoomCarousel');
-  let carouselInstance = null;
-
-  document.querySelectorAll('.zoom-click').forEach(img => {
-    img.addEventListener('click', function () {
-      const images = this.dataset.images
-        ? this.dataset.images.split(',').map(i => i.trim())
-        : [this.src];
-
-      const carouselInner = document.getElementById('carouselImages');
-      carouselInner.innerHTML = '';
-
-      images.forEach((src, index) => {
-        //IMAGENES
-        carouselInner.innerHTML += `
-          <div class="carousel-item ${index === 0 ? 'active' : ''}">
-            <img src="${src}" class="d-block w-100 img-fluid zoom-slide" alt="Imagen del producto">
-          </div>
-        `;
-      });
-
-      if (carouselInstance) {
-        carouselInstance.dispose();
-      }
-
-      carouselInstance = new bootstrap.Carousel(zoomCarousel, {
-        interval: false,
-        touch: true,
-        wrap: true
-      });
-    });
-  });
-</script>
-
-<!-- MODAL ZOOM SILLA 1 
-<div class="modal fade" id="zoomModal" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content bg-dark">
-      
-      <div class="modal-body p-0">
-
-        <div id="zoomCarousel" class="carousel slide" data-bs-ride="false">
-          <div class="carousel-inner" id="carouselImages"></div>
-
-          <button class="carousel-control-prev" type="button" data-bs-target="#zoomCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-          </button>
-
-          <button class="carousel-control-next" type="button" data-bs-target="#zoomCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon"></span>
-          </button>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-  document.querySelectorAll('.zoom-click').forEach(img => {
-    img.addEventListener('click', function () {
-
-      const images = this.dataset.images.split(',');
-      const carouselInner = document.getElementById('carouselImages');
-
-      carouselInner.innerHTML = '';
-
-      images.forEach((src, index) => {
-        carouselInner.innerHTML += `
-          <div class="carousel-item ${index === 0 ? 'active' : ''}">
-            <img src="${src}" class="d-block w-100 img-fluid">
-          </div>
-        `;
-      });
-
-    });
-  });
-</script>-->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
