@@ -1,6 +1,37 @@
 ﻿document.addEventListener("DOMContentLoaded", () => {
     const zoomCarousel = document.getElementById("zoomCarousel");
     const carouselInner = document.getElementById("carouselImages");
+    const productCards = document.querySelectorAll(".product-card");
+
+    productCards.forEach((card) => {
+        const previewImage = card.querySelector(".zoom-click");
+        const colorOptions = card.querySelectorAll(".color-option");
+
+        if (!previewImage || colorOptions.length === 0) {
+            return;
+        }
+
+        colorOptions.forEach((option) => {
+            if (option.classList.contains("color-disabled")) {
+                return;
+            }
+
+            option.addEventListener("click", () => {
+                const nextPreview = option.dataset.preview;
+                const nextImages = option.dataset.images;
+
+                if (!nextPreview || !nextImages) {
+                    return;
+                }
+
+                previewImage.src = nextPreview;
+                previewImage.dataset.images = nextImages;
+
+                colorOptions.forEach((item) => item.classList.remove("is-active"));
+                option.classList.add("is-active");
+            });
+        });
+    });
 
     if (!zoomCarousel || !carouselInner || typeof bootstrap === "undefined") {
         return;
