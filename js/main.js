@@ -2,6 +2,7 @@
     const zoomCarousel = document.getElementById("zoomCarousel");
     const carouselInner = document.getElementById("carouselImages");
     const productCards = document.querySelectorAll(".product-card");
+    let zoomCounter = null;
 
     productCards.forEach((card) => {
         const previewImage = card.querySelector(".zoom-click");
@@ -38,6 +39,36 @@
     }
 
     let carouselInstance = null;
+    const ensureZoomCounter = () => {
+        if (zoomCounter) {
+            return zoomCounter;
+        }
+
+        zoomCounter = document.createElement("div");
+        zoomCounter.className = "carousel-counter";
+        zoomCounter.setAttribute("aria-live", "polite");
+        zoomCarousel.append(zoomCounter);
+
+        return zoomCounter;
+    };
+
+    const updateZoomCounter = () => {
+        const counter = ensureZoomCounter();
+        const slides = carouselInner.querySelectorAll(".carousel-item");
+        const activeIndex = Array.from(slides).findIndex((slide) => slide.classList.contains("active"));
+        const total = slides.length;
+
+        if (total === 0) {
+            counter.hidden = true;
+            counter.textContent = "";
+            return;
+        }
+
+        counter.hidden = false;
+        counter.textContent = `${activeIndex >= 0 ? activeIndex + 1 : 1} / ${total}`;
+    };
+
+    zoomCarousel.addEventListener("slid.bs.carousel", updateZoomCounter);
 
     document.querySelectorAll(".zoom-click").forEach((image) => {
         image.addEventListener("click", () => {
@@ -52,6 +83,7 @@
             `).join("");
 
             carouselInner.innerHTML = slidesMarkup;
+            updateZoomCounter();
 
             if (carouselInstance) {
                 carouselInstance.dispose();
