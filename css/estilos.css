@@ -311,6 +311,14 @@ h1 {
 .product-copy {
     margin: 0;
     font-size: 0.95rem;
+    text-align: center;
+    white-space: pre-line;
+}
+
+.product-copy-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
 }
 
 .color-label {
@@ -552,6 +560,10 @@ h1 {
     .product-copy {
         font-size: 0.9rem;
         line-height: 1.6;
+    }
+
+    .product-copy-group {
+        gap: 0.3rem;
     }
 
     .color-label {
