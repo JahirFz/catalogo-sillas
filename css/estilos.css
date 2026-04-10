@@ -643,3 +643,37 @@ h1 {
         height: 58px;
     }
 }
+
+.zoom-stage {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: none;
+    cursor: default;
+    background: #fff;
+    border-radius: 18px;
+}
+
+.zoom-stage.is-zoomed {
+    cursor: move;
+}
+
+.zoom-stage.dragging {
+    cursor: move;
+}
+
+.zoom-slide {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    user-select: none;
+    -webkit-user-drag: none;
+    transform-origin: center center;
+    transition: transform 0.12s ease;
+    will-change: transform;
+    pointer-events: none;
+}
