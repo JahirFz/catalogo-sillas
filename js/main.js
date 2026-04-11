@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const productCards = document.querySelectorAll(".product-card");
     let zoomCounter = null;
 
+    /* ======== COLOR OPTION SWITCHING ======== */
     productCards.forEach((card) => {
         const previewImage = card.querySelector(".zoom-click");
         const colorOptions = card.querySelectorAll(".color-option");
@@ -25,8 +26,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     return;
                 }
 
-                previewImage.src = nextPreview;
-                previewImage.dataset.images = nextImages;
+                // Fade out, swap, fade in
+                previewImage.style.opacity = "0";
+                setTimeout(() => {
+                    previewImage.src = nextPreview;
+                    previewImage.dataset.images = nextImages;
+                    previewImage.style.opacity = "1";
+                }, 200);
 
                 colorOptions.forEach((item) => item.classList.remove("is-active"));
                 option.classList.add("is-active");
@@ -34,6 +40,28 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+    /* ======== SCROLL REVEAL ANIMATION ======== */
+    const revealElements = document.querySelectorAll(".reveal");
+    if (revealElements.length > 0 && "IntersectionObserver" in window) {
+        const revealObserver = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("is-visible");
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            },
+            { threshold: 0.12 }
+        );
+
+        revealElements.forEach((el) => revealObserver.observe(el));
+    } else {
+        // Fallback: show everything immediately
+        revealElements.forEach((el) => el.classList.add("is-visible"));
+    }
+
+    /* ======== GALLERY MODAL / CAROUSEL ======== */
     if (!zoomCarousel || !carouselInner || typeof bootstrap === "undefined") {
         return;
     }
@@ -42,8 +70,12 @@ document.addEventListener("DOMContentLoaded", () => {
     let swipeStartX = 0;
     let swipeStartY = 0;
     let swipeTracking = false;
-    const swipeThreshold = 20; // Sensibilidad alta, pero sin llegar al extremo
-    const swipeVerticalLimit = 80; // Tolerancia vertical generosa
+    const swipeThreshold = 20;
+    const swipeVerticalLimit = 80;
+
+    // AbortController for cleaning up zoom event listeners
+    let zoomAbortController = null;
+
     const ensureZoomCounter = () => {
         if (zoomCounter) {
             return zoomCounter;
@@ -76,8 +108,8 @@ document.addEventListener("DOMContentLoaded", () => {
     zoomCarousel.addEventListener("slid.bs.carousel", updateZoomCounter);
 
     const getActiveZoomStage = () => zoomCarousel.querySelector(".carousel-item.active .zoom-stage");
-    const getActiveZoomImage = () => zoomCarousel.querySelector(".carousel-item.active .zoom-slide");
 
+    /* ======== SWIPE NAVIGATION ======== */
     zoomCarousel.addEventListener("touchstart", (e) => {
         if (e.touches.length !== 1) {
             swipeTracking = false;
@@ -123,7 +155,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }, { passive: true });
 
+    /* ======== IMAGE ZOOM (PINCH, DRAG, DOUBLE-TAP) ======== */
     const activateImageZoom = () => {
+        // Clean up previous listeners
+        if (zoomAbortController) {
+            zoomAbortController.abort();
+        }
+        zoomAbortController = new AbortController();
+        const signal = zoomAbortController.signal;
+
         document.querySelectorAll(".zoom-stage").forEach((stage) => {
             const img = stage.querySelector(".zoom-slide");
             if (!img) return;
@@ -170,18 +210,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const getDist = (touches) => Math.hypot(touches[0].clientX - touches[1].clientX, touches[0].clientY - touches[1].clientY);
 
-            stage.addEventListener("dblclick", (e) => { e.preventDefault(); adjustZoom(scale === 1 ? 2.2 : 1); });
+            // Mouse events
+            stage.addEventListener("dblclick", (e) => { e.preventDefault(); adjustZoom(scale === 1 ? 2.2 : 1); }, { signal });
             stage.addEventListener("wheel", (e) => {
                 e.preventDefault();
                 const r = stage.getBoundingClientRect();
                 adjustZoom(scale + (e.deltaY < 0 ? 0.25 : -0.25), e.clientX - r.left - r.width / 2, e.clientY - r.top - r.height / 2);
-            }, { passive: false });
-            
-            stage.addEventListener("mousedown", (e) => { if (scale > 1) { e.preventDefault(); setDrag(true, e); } });
-            window.addEventListener("mousemove", (e) => handleMove(e.clientX, e.clientY));
-            window.addEventListener("mouseup", () => setDrag(false));
-            stage.addEventListener("mouseleave", () => setDrag(false));
+            }, { passive: false, signal });
 
+            stage.addEventListener("mousedown", (e) => { if (scale > 1) { e.preventDefault(); setDrag(true, e); } }, { signal });
+            window.addEventListener("mousemove", (e) => handleMove(e.clientX, e.clientY), { signal });
+            window.addEventListener("mouseup", () => setDrag(false), { signal });
+            stage.addEventListener("mouseleave", () => setDrag(false), { signal });
+
+            // Touch events
             stage.addEventListener("touchstart", (e) => {
                 if (e.touches.length === 1) {
                     const now = Date.now();
@@ -190,7 +232,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 } else if (e.touches.length === 2) {
                     e.preventDefault(); e.stopPropagation(); initialDist = getDist(e.touches); initialScale = scale; setDrag(false);
                 }
-            }, { passive: false });
+            }, { passive: false, signal });
 
             stage.addEventListener("touchmove", (e) => {
                 if (e.touches.length === 2 && initialDist) {
@@ -199,20 +241,22 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (activeDrag && scale > 1) { e.preventDefault(); e.stopPropagation(); }
                     handleMove(e.touches[0].clientX, e.touches[0].clientY);
                 }
-            }, { passive: false });
+            }, { passive: false, signal });
 
             ["touchend", "touchcancel"].forEach(evt => stage.addEventListener(evt, (e) => {
-                initialDist = 0; 
+                initialDist = 0;
                 if (scale > 1) { e.preventDefault(); e.stopPropagation(); }
                 if (scale <= 1) { pointX = pointY = 0; }
-                setDrag(false); 
+                setDrag(false);
                 updateTransform();
-            }, { passive: false }));
+            }, { passive: false, signal }));
 
-            img.addEventListener("load", () => adjustZoom(1));
-            img.addEventListener("dragstart", (e) => e.preventDefault());
+            img.addEventListener("load", () => adjustZoom(1), { signal });
+            img.addEventListener("dragstart", (e) => e.preventDefault(), { signal });
         });
     };
+
+    /* ======== MODAL OPEN — BUILD SLIDES ======== */
     document.querySelectorAll(".zoom-click").forEach((image) => {
         image.addEventListener("click", () => {
             const imageList = image.dataset.images
@@ -242,4 +286,25 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
     });
+
+    /* ======== MODAL CLOSE — CLEANUP ======== */
+    const zoomModal = document.getElementById("zoomModal");
+    if (zoomModal) {
+        zoomModal.addEventListener("hidden.bs.modal", () => {
+            // Abort all zoom-related listeners
+            if (zoomAbortController) {
+                zoomAbortController.abort();
+                zoomAbortController = null;
+            }
+
+            // Clear carousel content
+            carouselInner.innerHTML = "";
+
+            // Dispose carousel instance
+            if (carouselInstance) {
+                carouselInstance.dispose();
+                carouselInstance = null;
+            }
+        });
+    }
 });
