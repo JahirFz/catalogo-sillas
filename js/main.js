@@ -1,4 +1,4 @@
-﻿document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
     const zoomCarousel = document.getElementById("zoomCarousel");
     const carouselInner = document.getElementById("carouselImages");
     const productCards = document.querySelectorAll(".product-card");
@@ -42,8 +42,8 @@
     let swipeStartX = 0;
     let swipeStartY = 0;
     let swipeTracking = false;
-    const swipeThreshold = 80;
-    const swipeVerticalLimit = 42;
+    const swipeThreshold = 20; // Sensibilidad alta, pero sin llegar al extremo
+    const swipeVerticalLimit = 80; // Tolerancia vertical generosa
     const ensureZoomCounter = () => {
         if (zoomCounter) {
             return zoomCounter;
@@ -128,221 +128,88 @@
             const img = stage.querySelector(".zoom-slide");
             if (!img) return;
 
-            let scale = 1;
-            let pointX = 0;
-            let pointY = 0;
-            let startX = 0;
-            let startY = 0;
-            let dragging = false;
+            let scale = 1, pointX = 0, pointY = 0, startX, startY;
+            let initialDist = 0, initialScale = 1, lastTap = 0, activeDrag = false;
 
-            let initialDistance = null;
-            let initialScale = 1;
-            let lastTap = 0;
-            let touchDrag = false;
-
-            const minScale = 1;
-            const maxScale = 4;
-
-            const clampPosition = () => {
-                const rect = stage.getBoundingClientRect();
-                const maxX = ((rect.width * scale) - rect.width) / 2;
-                const maxY = ((rect.height * scale) - rect.height) / 2;
-
-                if (maxX > 0) {
-                    pointX = Math.max(-maxX, Math.min(maxX, pointX));
-                } else {
-                    pointX = 0;
-                }
-
-                if (maxY > 0) {
-                    pointY = Math.max(-maxY, Math.min(maxY, pointY));
-                } else {
-                    pointY = 0;
+            const setDrag = (state, e) => {
+                activeDrag = state;
+                stage.classList.toggle("dragging", state);
+                if (state && e) {
+                    startX = (e.touches ? e.touches[0].clientX : e.clientX) - pointX;
+                    startY = (e.touches ? e.touches[0].clientY : e.clientY) - pointY;
                 }
             };
 
             const updateTransform = () => {
-                clampPosition();
+                const r = stage.getBoundingClientRect();
+                const mX = Math.max(0, r.width * (scale - 1) / 2), mY = Math.max(0, r.height * (scale - 1) / 2);
+                pointX = Math.max(-mX, Math.min(mX, pointX));
+                pointY = Math.max(-mY, Math.min(mY, pointY));
                 img.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
                 stage.classList.toggle("is-zoomed", scale > 1);
-
-                if (scale <= 1 && dragging) {
-                    dragging = false;
-                    stage.classList.remove("dragging");
-                }
+                if (scale <= 1 && activeDrag) setDrag(false);
             };
 
-            const resetZoom = () => {
-                scale = 1;
-                pointX = 0;
-                pointY = 0;
+            const adjustZoom = (nScale, x = 0, y = 0) => {
+                const oScale = scale;
+                scale = Math.min(Math.max(1, nScale), 4);
+                if (scale === 1) pointX = pointY = 0;
+                else {
+                    const ratio = scale / oScale;
+                    pointX = x - (x - pointX) * ratio;
+                    pointY = y - (y - pointY) * ratio;
+                }
                 updateTransform();
             };
 
-            const adjustZoom = (nextScale, originX = 0, originY = 0) => {
-                const oldScale = scale;
-                scale = Math.min(Math.max(minScale, nextScale), maxScale);
-
-                if (scale === 1) {
-                    pointX = 0;
-                    pointY = 0;
-                } else {
-                    const scaleRatio = scale / oldScale;
-                    pointX = originX - (originX - pointX) * scaleRatio;
-                    pointY = originY - (originY - pointY) * scaleRatio;
-                }
-
+            const handleMove = (x, y) => {
+                if (!activeDrag || scale <= 1) return;
+                pointX = x - startX; pointY = y - startY;
                 updateTransform();
             };
 
-            const getDistance = (touches) => {
-                const dx = touches[0].clientX - touches[1].clientX;
-                const dy = touches[0].clientY - touches[1].clientY;
-                return Math.sqrt(dx * dx + dy * dy);
-            };
+            const getDist = (touches) => Math.hypot(touches[0].clientX - touches[1].clientX, touches[0].clientY - touches[1].clientY);
 
-            stage.addEventListener("dblclick", (e) => {
-                e.preventDefault();
-
-                if (scale === 1) {
-                    scale = 2.2;
-                } else {
-                    resetZoom();
-                    return;
-                }
-
-                updateTransform();
-            });
-
+            stage.addEventListener("dblclick", (e) => { e.preventDefault(); adjustZoom(scale === 1 ? 2.2 : 1); });
             stage.addEventListener("wheel", (e) => {
                 e.preventDefault();
-
-                const rect = stage.getBoundingClientRect();
-                const mouseX = e.clientX - rect.left - rect.width / 2;
-                const mouseY = e.clientY - rect.top - rect.height / 2;
-                adjustZoom(scale + (e.deltaY < 0 ? 0.25 : -0.25), mouseX, mouseY);
+                const r = stage.getBoundingClientRect();
+                adjustZoom(scale + (e.deltaY < 0 ? 0.25 : -0.25), e.clientX - r.left - r.width / 2, e.clientY - r.top - r.height / 2);
             }, { passive: false });
-
-            stage.addEventListener("mousedown", (e) => {
-                if (scale <= 1) return;
-
-                e.preventDefault();
-                dragging = true;
-                stage.classList.add("dragging");
-                startX = e.clientX - pointX;
-                startY = e.clientY - pointY;
-            });
-
-            window.addEventListener("mousemove", (e) => {
-                if (!dragging) return;
-
-                pointX = e.clientX - startX;
-                pointY = e.clientY - startY;
-                updateTransform();
-            });
-
-            window.addEventListener("mouseup", () => {
-                dragging = false;
-                stage.classList.remove("dragging");
-            });
-
-            stage.addEventListener("mouseleave", () => {
-                if (!dragging) return;
-                dragging = false;
-                stage.classList.remove("dragging");
-            });
+            
+            stage.addEventListener("mousedown", (e) => { if (scale > 1) { e.preventDefault(); setDrag(true, e); } });
+            window.addEventListener("mousemove", (e) => handleMove(e.clientX, e.clientY));
+            window.addEventListener("mouseup", () => setDrag(false));
+            stage.addEventListener("mouseleave", () => setDrag(false));
 
             stage.addEventListener("touchstart", (e) => {
-                const now = Date.now();
-
                 if (e.touches.length === 1) {
-                    if (now - lastTap < 300) {
-                        e.preventDefault();
-                        e.stopPropagation();
-
-                        if (scale === 1) {
-                            scale = 2.2;
-                        } else {
-                            resetZoom();
-                            lastTap = 0;
-                            return;
-                        }
-
-                        updateTransform();
-                    }
-
-                    lastTap = now;
-
-                    if (scale > 1) {
-                        touchDrag = true;
-                        startX = e.touches[0].clientX - pointX;
-                        startY = e.touches[0].clientY - pointY;
-                        e.preventDefault();
-                        e.stopPropagation();
-                    }
-                }
-
-                if (e.touches.length === 2) {
-                    initialDistance = getDistance(e.touches);
-                    initialScale = scale;
-                    touchDrag = false;
-                    e.preventDefault();
-                    e.stopPropagation();
+                    const now = Date.now();
+                    if (now - lastTap < 300) { e.preventDefault(); e.stopPropagation(); adjustZoom(scale === 1 ? 2.2 : 1); lastTap = 0; }
+                    else { lastTap = now; if (scale > 1) { e.preventDefault(); e.stopPropagation(); setDrag(true, e); } }
+                } else if (e.touches.length === 2) {
+                    e.preventDefault(); e.stopPropagation(); initialDist = getDist(e.touches); initialScale = scale; setDrag(false);
                 }
             }, { passive: false });
 
             stage.addEventListener("touchmove", (e) => {
-                if (e.touches.length === 2 && initialDistance) {
-                    e.preventDefault();
-                    e.stopPropagation();
-
-                    const newDistance = getDistance(e.touches);
-                    const scaleFactor = newDistance / initialDistance;
-
-                    scale = initialScale * scaleFactor;
-                    scale = Math.min(Math.max(minScale, scale), maxScale);
-
-                    updateTransform();
-                } else if (e.touches.length === 1 && touchDrag && scale > 1) {
-                    e.preventDefault();
-                    e.stopPropagation();
-
-                    pointX = e.touches[0].clientX - startX;
-                    pointY = e.touches[0].clientY - startY;
-                    updateTransform();
+                if (e.touches.length === 2 && initialDist) {
+                    e.preventDefault(); e.stopPropagation(); adjustZoom(initialScale * (getDist(e.touches) / initialDist));
+                } else if (e.touches.length === 1) {
+                    if (activeDrag && scale > 1) { e.preventDefault(); e.stopPropagation(); }
+                    handleMove(e.touches[0].clientX, e.touches[0].clientY);
                 }
             }, { passive: false });
 
-            stage.addEventListener("touchend", (e) => {
-                initialDistance = null;
-
-                if (scale > 1) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                }
-
-                if (scale <= 1) {
-                    touchDrag = false;
-                    pointX = 0;
-                    pointY = 0;
-                }
-
+            ["touchend", "touchcancel"].forEach(evt => stage.addEventListener(evt, (e) => {
+                initialDist = 0; 
+                if (scale > 1) { e.preventDefault(); e.stopPropagation(); }
+                if (scale <= 1) { pointX = pointY = 0; }
+                setDrag(false); 
                 updateTransform();
-            }, { passive: false });
+            }, { passive: false }));
 
-            stage.addEventListener("touchcancel", (e) => {
-                initialDistance = null;
-                touchDrag = false;
-
-                if (scale > 1) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                }
-
-                updateTransform();
-            }, { passive: false });
-
-            img.addEventListener("load", resetZoom);
+            img.addEventListener("load", () => adjustZoom(1));
             img.addEventListener("dragstart", (e) => e.preventDefault());
         });
     };
