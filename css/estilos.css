@@ -751,6 +751,18 @@ h1 {
     line-height: 1.7;
 }
 
+.site-footer strong {
+    color: var(--text);
+}
+
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.35rem 1rem;
+    margin-top: 0.45rem;
+}
+
 .site-footer a {
     color: var(--accent);
     text-decoration: none;
