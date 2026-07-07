@@ -1,11 +1,65 @@
 document.addEventListener("DOMContentLoaded", () => {
     const zoomCarousel = document.getElementById("zoomCarousel");
     const carouselInner = document.getElementById("carouselImages");
+    let zoomCounter = null;
+    const whatsappNumber = "522223882640";
+
+    const escapeHtml = (value) => String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+
+    const renderCatalog = () => {
+        const catalogGrid = document.getElementById("catalogGrid");
+        const catalogType = document.body.dataset.catalog;
+
+        if (!catalogGrid || !catalogType || !window.catalogData || !window.catalogData[catalogType]) {
+            return;
+        }
+
+        catalogGrid.innerHTML = window.catalogData[catalogType].map((product) => {
+            const image = product.image;
+            const loading = image.loading || "lazy";
+            const fetchPriority = image.fetchpriority ? ` fetchpriority="${escapeHtml(image.fetchpriority)}"` : "";
+            const details = product.details.map((detail) => (
+                `<p class="product-copy">${escapeHtml(detail)}</p>`
+            )).join("");
+            const colors = product.colors ? `
+                <p class="color-label">Colores disponibles</p>
+                <div class="colores" aria-label="${escapeHtml(product.colorsLabel || "Colores disponibles")}">
+                    ${product.colors.map((color) => {
+                        const disabledClass = color.disabled ? " color-disabled" : "";
+                        const activeClass = color.active ? " is-active" : "";
+                        const title = color.disabled ? `${color.name} - sin fotos` : color.name;
+                        const preview = color.preview ? ` data-preview="${escapeHtml(color.preview)}"` : "";
+                        const images = color.images ? ` data-images="${escapeHtml(color.images.join(","))}"` : "";
+
+                        return `<button type="button" class="color ${escapeHtml(color.className)} color-option${disabledClass}${activeClass}" title="${escapeHtml(title)}" aria-label="${escapeHtml(title)}"${preview}${images}></button>`;
+                    }).join("")}
+                </div>
+            ` : "";
+
+            return `
+                <div class="col-md-6 col-lg-4 reveal catalog-item" data-category="${escapeHtml(product.categories.join(" "))}">
+                    <article class="card product-card h-100">
+                        <img src="${escapeHtml(image.src)}" class="card-img-top zoom-click" data-bs-toggle="modal" data-bs-target="#zoomModal" data-images="${escapeHtml(product.gallery.join(","))}" width="${escapeHtml(image.width)}" height="${escapeHtml(image.height)}" alt="${escapeHtml(image.alt)}" loading="${escapeHtml(loading)}" decoding="async"${fetchPriority}>
+                        <div class="card-body">
+                            <h2 class="product-title">${escapeHtml(product.title)}</h2>
+                            <div class="product-copy-group">${details}</div>
+                            ${colors}
+                        </div>
+                    </article>
+                </div>
+            `;
+        }).join("");
+    };
+
+    renderCatalog();
+
     const productCards = document.querySelectorAll(".product-card");
     const filterButtons = document.querySelectorAll(".filter-chip");
     const catalogItems = document.querySelectorAll(".catalog-item");
-    let zoomCounter = null;
-    const whatsappNumber = "522223882640";
 
     /* ======== CATALOG FILTERS ======== */
     if (filterButtons.length > 0 && catalogItems.length > 0) {
