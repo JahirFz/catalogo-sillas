@@ -3,6 +3,30 @@ document.addEventListener("DOMContentLoaded", () => {
     const carouselInner = document.getElementById("carouselImages");
     const productCards = document.querySelectorAll(".product-card");
     let zoomCounter = null;
+    const whatsappNumber = "522223882640";
+
+    /* ======== PRODUCT QUOTE CTA ======== */
+    productCards.forEach((card) => {
+        const title = card.querySelector(".product-title");
+        const body = card.querySelector(".card-body");
+
+        if (!title || !body || body.querySelector(".quote-button")) {
+            return;
+        }
+
+        const productName = title.textContent.trim();
+        const message = `Hola, quiero cotizar ${productName}`;
+        const quoteButton = document.createElement("a");
+
+        quoteButton.className = "quote-button";
+        quoteButton.href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+        quoteButton.target = "_blank";
+        quoteButton.rel = "noopener noreferrer";
+        quoteButton.setAttribute("aria-label", `Cotizar ${productName} por WhatsApp`);
+        quoteButton.textContent = "Cotizar este modelo";
+
+        body.append(quoteButton);
+    });
 
     /* ======== COLOR OPTION SWITCHING ======== */
     productCards.forEach((card) => {
