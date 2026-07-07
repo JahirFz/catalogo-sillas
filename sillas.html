@@ -62,8 +62,17 @@
 
         <section class="catalog-grid-section">
             <div class="container">
+                <div class="catalog-filters" aria-label="Filtrar sillas">
+                    <button type="button" class="filter-chip is-active" data-filter="all">Todas</button>
+                    <button type="button" class="filter-chip" data-filter="zintro">Zintro</button>
+                    <button type="button" class="filter-chip" data-filter="cromada">Cromadas</button>
+                    <button type="button" class="filter-chip" data-filter="pintada">Pintadas</button>
+                    <button type="button" class="filter-chip" data-filter="acojinada">Acojinadas</button>
+                    <button type="button" class="filter-chip" data-filter="infantil">Infantil</button>
+                    <button type="button" class="filter-chip" data-filter="plastico">Plástico</button>
+                </div>
                 <div class="row g-4">
-                    <div class="col-md-6 col-lg-4 reveal">
+                    <div class="col-md-6 col-lg-4 reveal catalog-item" data-category="zintro pintada">
                         <article class="card product-card h-100">
                             <img src="img/sillas/sillaZintroPintada/sillaZintroPintadaBlanca3.webp"
                                 class="card-img-top zoom-click" data-bs-toggle="modal" data-bs-target="#zoomModal"
@@ -112,7 +121,7 @@
                         </article>
                     </div>
 
-                    <div class="col-md-6 col-lg-4 reveal">
+                    <div class="col-md-6 col-lg-4 reveal catalog-item" data-category="cromada">
                         <article class="card product-card h-100">
                             <img src="img/sillas/sillaCromada/SillaCromadaVerde3.webp" class="card-img-top zoom-click"
                                 data-bs-toggle="modal" data-bs-target="#zoomModal"
@@ -156,7 +165,7 @@
                         </article>
                     </div>
 
-                    <div class="col-md-6 col-lg-4 reveal">
+                    <div class="col-md-6 col-lg-4 reveal catalog-item" data-category="galvanizada">
                         <article class="card product-card h-100">
                             <img src="img/sillas/sillaGalbanizada/sillaGalvanizada3.webp"
                                 class="card-img-top zoom-click" data-bs-toggle="modal" data-bs-target="#zoomModal"
@@ -198,7 +207,7 @@
                         </article>
                     </div>
 
-                    <div class="col-md-6 col-lg-4 reveal">
+                    <div class="col-md-6 col-lg-4 reveal catalog-item" data-category="pintada">
                         <article class="card product-card h-100">
                             <img src="img/sillas/sillaPintada/sillaPintadaRoja3.webp" class="card-img-top zoom-click"
                                 data-bs-toggle="modal" data-bs-target="#zoomModal"
@@ -240,7 +249,7 @@
                         </article>
                     </div>
 
-                    <div class="col-md-6 col-lg-4 reveal">
+                    <div class="col-md-6 col-lg-4 reveal catalog-item" data-category="zintro">
                         <article class="card product-card h-100">
                             <img src="img/sillas/sillaZintroCompleta/sillaZintroCompleta3.webp"
                                 class="card-img-top zoom-click" data-bs-toggle="modal" data-bs-target="#zoomModal"
@@ -257,7 +266,7 @@
                         </article>
                     </div>
 
-                    <div class="col-md-6 col-lg-4 reveal">
+                    <div class="col-md-6 col-lg-4 reveal catalog-item" data-category="acojinada cromada">
                         <article class="card product-card h-100">
                             <img src="img/sillas/sillaAcojinadaCromada/SillaAcojinadaCromada3.webp"
                                 class="card-img-top zoom-click" data-bs-toggle="modal" data-bs-target="#zoomModal"
@@ -274,7 +283,7 @@
                         </article>
                     </div>
 
-                    <div class="col-md-6 col-lg-4 reveal">
+                    <div class="col-md-6 col-lg-4 reveal catalog-item" data-category="plastico">
                         <article class="card product-card h-100">
                             <img src="img/sillas/sillaPlastico/sillaPlastico3.webp" class="card-img-top zoom-click"
                                 data-bs-toggle="modal" data-bs-target="#zoomModal"
@@ -291,7 +300,7 @@
                         </article>
                     </div>
 
-                    <div class="col-md-6 col-lg-4 reveal">
+                    <div class="col-md-6 col-lg-4 reveal catalog-item" data-category="acojinada infantil">
                         <article class="card product-card h-100">
                             <img src="img/sillas/sillaAcojinadaInfantil/sillaAcojinadaInfantilVerde3.webp"
                                 class="card-img-top zoom-click" data-bs-toggle="modal" data-bs-target="#zoomModal"

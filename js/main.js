@@ -2,8 +2,34 @@ document.addEventListener("DOMContentLoaded", () => {
     const zoomCarousel = document.getElementById("zoomCarousel");
     const carouselInner = document.getElementById("carouselImages");
     const productCards = document.querySelectorAll(".product-card");
+    const filterButtons = document.querySelectorAll(".filter-chip");
+    const catalogItems = document.querySelectorAll(".catalog-item");
     let zoomCounter = null;
     const whatsappNumber = "522223882640";
+
+    /* ======== CATALOG FILTERS ======== */
+    if (filterButtons.length > 0 && catalogItems.length > 0) {
+        filterButtons.forEach((button) => {
+            button.addEventListener("click", () => {
+                const selectedFilter = button.dataset.filter || "all";
+
+                filterButtons.forEach((item) => {
+                    item.classList.toggle("is-active", item === button);
+                    item.setAttribute("aria-pressed", item === button ? "true" : "false");
+                });
+
+                catalogItems.forEach((item) => {
+                    const categories = (item.dataset.category || "").split(/\s+/);
+                    const shouldShow = selectedFilter === "all" || categories.includes(selectedFilter);
+
+                    item.hidden = !shouldShow;
+                    item.classList.toggle("is-visible", shouldShow);
+                });
+            });
+
+            button.setAttribute("aria-pressed", button.classList.contains("is-active") ? "true" : "false");
+        });
+    }
 
     /* ======== PRODUCT QUOTE CTA ======== */
     productCards.forEach((card) => {

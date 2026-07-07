@@ -62,9 +62,19 @@
 
         <section class="catalog-grid-section">
             <div class="container">
+                <div class="catalog-filters" aria-label="Filtrar mesas">
+                    <button type="button" class="filter-chip is-active" data-filter="all">Todas</button>
+                    <button type="button" class="filter-chip" data-filter="rectangular">Rectangulares</button>
+                    <button type="button" class="filter-chip" data-filter="redonda">Redondas</button>
+                    <button type="button" class="filter-chip" data-filter="imperial">Imperiales</button>
+                    <button type="button" class="filter-chip" data-filter="tablon">Tablón</button>
+                    <button type="button" class="filter-chip" data-filter="4-personas">4 personas</button>
+                    <button type="button" class="filter-chip" data-filter="6-personas">6 personas</button>
+                    <button type="button" class="filter-chip" data-filter="10-personas">10+ personas</button>
+                </div>
                 <div class="row g-4">
 
-                    <div class="col-md-6 col-lg-4 reveal">
+                    <div class="col-md-6 col-lg-4 reveal catalog-item" data-category="rectangular 10-personas">
                         <article class="card product-card h-100">
                             <img src="img/mesas/mesaRectangular/mesaRectangular3.webp" class="card-img-top zoom-click"
                                 data-bs-toggle="modal" data-bs-target="#zoomModal"
@@ -83,7 +93,7 @@
                         </article>
                     </div>
 
-                    <div class="col-md-6 col-lg-4 reveal">
+                    <div class="col-md-6 col-lg-4 reveal catalog-item" data-category="redonda 10-personas">
                         <article class="card product-card h-100">
                             <img src="img/mesas/mesaRedonda/mesaRedonda3.webp" class="card-img-top zoom-click"
                                 data-bs-toggle="modal" data-bs-target="#zoomModal"
@@ -102,7 +112,7 @@
                         </article>
                     </div>
 
-                    <div class="col-md-6 col-lg-4 reveal">
+                    <div class="col-md-6 col-lg-4 reveal catalog-item" data-category="redonda zintro 10-personas">
                         <article class="card product-card h-100">
                             <img src="img/mesas/mesaRedondaZintro/mesaRedondaZintro3.webp"
                                 class="card-img-top zoom-click" data-bs-toggle="modal" data-bs-target="#zoomModal"
@@ -121,7 +131,7 @@
                         </article>
                     </div>
 
-                    <div class="col-md-6 col-lg-4 reveal">
+                    <div class="col-md-6 col-lg-4 reveal catalog-item" data-category="imperial 10-personas">
                         <article class="card product-card h-100">
                             <img src="img/mesas/mesaImperial/mesaImperial3.webp" class="card-img-top zoom-click"
                                 data-bs-toggle="modal" data-bs-target="#zoomModal"
@@ -140,7 +150,7 @@
                         </article>
                     </div>
 
-                    <div class="col-md-6 col-lg-4 reveal">
+                    <div class="col-md-6 col-lg-4 reveal catalog-item" data-category="imperial zintro 10-personas">
                         <article class="card product-card h-100">
                             <img src="img/mesas/mesaImperialZintro/mesaImperialZintro3.webp"
                                 class="card-img-top zoom-click" data-bs-toggle="modal" data-bs-target="#zoomModal"
@@ -159,7 +169,7 @@
                         </article>
                     </div>
 
-                    <div class="col-md-6 col-lg-4 reveal">
+                    <div class="col-md-6 col-lg-4 reveal catalog-item" data-category="tablon 10-personas">
                         <article class="card product-card h-100">
                             <img src="img/mesas/mesaTablon/mesaTablon3.webp" class="card-img-top zoom-click"
                                 data-bs-toggle="modal" data-bs-target="#zoomModal"
@@ -176,7 +186,7 @@
                         </article>
                     </div>
 
-                    <div class="col-md-6 col-lg-4 reveal">
+                    <div class="col-md-6 col-lg-4 reveal catalog-item" data-category="cuadrada 4-personas">
                         <article class="card product-card h-100">
                             <img src="img/mesas/mesaCuadrada/mesaCuadrada3.webp" class="card-img-top zoom-click"
                                 data-bs-toggle="modal" data-bs-target="#zoomModal"
@@ -195,7 +205,7 @@
                         </article>
                     </div>
 
-                    <div class="col-md-6 col-lg-4 reveal">
+                    <div class="col-md-6 col-lg-4 reveal catalog-item" data-category="rectangular 6-personas">
                         <article class="card product-card h-100">
                             <img src="img/mesas/mesaRectangularChica/mesaRectangularChica3.webp"
                                 class="card-img-top zoom-click" data-bs-toggle="modal" data-bs-target="#zoomModal"
