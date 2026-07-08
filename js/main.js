@@ -394,6 +394,32 @@ document.addEventListener("DOMContentLoaded", () => {
     /* ======== MODAL CLOSE — CLEANUP ======== */
     const zoomModal = document.getElementById("zoomModal");
     if (zoomModal) {
+        const zoomModalInstance = bootstrap.Modal.getOrCreateInstance(zoomModal);
+        let zoomHistoryActive = false;
+        let closingFromHistory = false;
+
+        zoomModal.addEventListener("shown.bs.modal", () => {
+            if (zoomHistoryActive) {
+                return;
+            }
+
+            history.pushState({ ...history.state, zoomModalOpen: true }, "", window.location.href);
+            zoomHistoryActive = true;
+        });
+
+        window.addEventListener("popstate", () => {
+            if (!zoomHistoryActive) {
+                return;
+            }
+
+            zoomHistoryActive = false;
+            closingFromHistory = true;
+
+            if (zoomModal.classList.contains("show")) {
+                zoomModalInstance.hide();
+            }
+        });
+
         zoomModal.addEventListener("hidden.bs.modal", () => {
             // Abort all zoom-related listeners
             if (zoomAbortController) {
@@ -409,6 +435,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 carouselInstance.dispose();
                 carouselInstance = null;
             }
+
+            if (zoomHistoryActive && !closingFromHistory) {
+                zoomHistoryActive = false;
+                history.back();
+            }
+
+            closingFromHistory = false;
         });
     }
 });
